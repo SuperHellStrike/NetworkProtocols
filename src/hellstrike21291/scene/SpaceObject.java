@@ -1,5 +1,6 @@
 package hellstrike21291.scene;
 
+import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.math.Matrix4;
 import com.jogamp.opengl.util.texture.Texture;
 
@@ -8,59 +9,37 @@ import hellstrike21291.utils.VAO;
 
 public abstract class SpaceObject {
 
-	protected float x;
-	protected float y;
+	protected float x = 0;
+	protected float y = 0;
 	
-	protected float angle;
+	protected float angle = 0;
 	
 	protected Texture texture;
 	protected VAO vao;
 	protected Shaders shaders;
 	
-	protected Matrix4 modelMatrix;
+	protected Matrix4 modelMatrix = new Matrix4();
 	
-	public SpaceObject(float x, float y, Texture texture, VAO vao, Shaders shaders) {
-		this.x = x;
-		this.y = y;
-		this.texture = texture;
-		this.vao = vao;
-		this.shaders = shaders;
-		this.modelMatrix = new Matrix4();
-		this.angle = 0;
-		this.updateModelMatrix();
+	protected GL4 gl;
+	
+	public void rotate(float dAngle) {
+		angle += dAngle;
 	}
-	
-	public abstract void draw();
-	
-	public void rotate(float dangle) {
-		angle += dangle;
-	}
-	
+
 	public void translate(float dx, float dy) {
 		x += dx;
 		y += dy;
 	}
 	
-	protected void updateModelMatrix() {
-		modelMatrix.loadIdentity();
-		modelMatrix.translate(x, y, 0);
-		modelMatrix.rotate(angle, 0, 0, 1);
-		shaders.loadUniformMatrix4(shaders.getUniformLocation("model"), modelMatrix);
-	}
-	
-	public void save() {
+	public abstract void draw();
 		
-	}
+	protected abstract void doAction();
 	
-	public void load() {
-		
-	}
+	public abstract void save();
 	
-	public void xSave() {
-		
-	}
+	public abstract void load();
 	
-	public void xLoad() {
-		
-	}
+	public abstract void xSave();
+	
+	public abstract void xLoad();
 }

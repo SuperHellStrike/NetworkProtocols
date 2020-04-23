@@ -11,6 +11,7 @@ import com.jogamp.opengl.math.Matrix4;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
+import hellstrike21291.scene.Sun;
 import hellstrike21291.utils.Shaders;
 import hellstrike21291.utils.VAO;
 
@@ -22,24 +23,25 @@ public class GameListener extends BasicListener{
 	private Texture sunTexture;
 	private Texture planetTexture;
 	
+	private Sun sun;
+	
 	private float[] posData = {
-		10.0f, 10.0f,
-		-10.0f, 10.0f,
-		-10.0f, -10.0f,
-		10.0f, -10.0f
+		20.0f, 20.0f,
+		-20.0f, 20.0f,
+		-20.0f, -20.0f,
+		20.0f, -20.0f
 	};
 		
 	private float[] texData = {
-		1.0f, 1.0f,
-		0.0f, 1.0f,
+		1.0f, 0.0f,
 		0.0f, 0.0f,
-		1.0f, 0.0f
+		0.0f, 1.0f,
+		1.0f, 1.0f
 	};
 
 	@Override
 	public void init(GLAutoDrawable drawable) {
 		gl = drawable.getGL().getGL4();
-		
 		
 		shaders = new Shaders(gl, "shaders/vs.vert", "shaders/fs.frag");
 		vao = new VAO(gl, 
@@ -48,11 +50,20 @@ public class GameListener extends BasicListener{
 				GL4.GL_STATIC_DRAW);
 		
 		try {
-			sunTexture = TextureIO.newTexture(new File("textures/sun.png"), true);
-			planetTexture = TextureIO.newTexture(new File("textures/planet.png"), true);
+			sunTexture = TextureIO.newTexture(new File("textures/sun (2).png"), true);
+			planetTexture = TextureIO.newTexture(new File("textures/planet (2).png"), true);
 		} catch (GLException | IOException e) {
 			System.out.println(e.getMessage());
 		}
+		
+		
+		planetTexture.setTexParameteri(gl, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
+		planetTexture.setTexParameteri(gl, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
+		
+		sunTexture.setTexParameteri(gl, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
+		sunTexture.setTexParameteri(gl, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
+		
+		sun = new Sun(250, 250, gl, shaders, vao, sunTexture);
 	}
 	
 	@Override
@@ -68,11 +79,19 @@ public class GameListener extends BasicListener{
 	public void display(GLAutoDrawable drawable) {
 		gl.glClear(GL4.GL_COLOR_BUFFER_BIT);
 		
+		sun.draw();
 		
-		gl.glFlush();
+		gl.glFlush();		
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		int button = e.getButton();
+		
+		if(button == MouseEvent.BUTTON1) {
+			sun.addPlanet(x, y, planetTexture);
+		}
 	}
 }
