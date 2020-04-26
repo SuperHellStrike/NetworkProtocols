@@ -1,5 +1,7 @@
 package hellstrike21291.scene;
 
+import java.io.FileOutputStream;
+
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.math.Matrix4;
 import com.jogamp.opengl.util.texture.Texture;
@@ -35,11 +37,5 @@ public abstract class SpaceObject {
 		
 	protected abstract void doAction();
 	
-	public abstract void save();
-	
-	public abstract void load();
-	
-	public abstract void xSave();
-	
-	public abstract void xLoad();
+	public abstract void save(FileOutputStream file);
 }

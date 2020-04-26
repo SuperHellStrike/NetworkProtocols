@@ -2,12 +2,14 @@ package hellstrike21291.utils;
 
 import com.jogamp.opengl.GLAutoDrawable;
 
-public class Updater extends Thread{
+public class Updater extends Thread {
 
 	private GLAutoDrawable canvas;
+	private boolean isActive;
 	
 	public Updater(GLAutoDrawable canvas) {
 		this.canvas = canvas;
+		isActive = true;
 	}
 	
 	@Override
@@ -18,9 +20,13 @@ public class Updater extends Thread{
 			} catch (InterruptedException e) {
 				System.out.println("Updater was iterrupted");
 			}
-			canvas.display();
+			
+			if(isActive)
+				canvas.display();
 		}
 	}
 
-	
+	public void switchActive() {
+		isActive = !isActive;
+	}
 }

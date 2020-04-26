@@ -18,8 +18,8 @@ public class MainWindow {
 	public MainWindow() {
 		frame = new JFrame("AVT-818 Жигулин Чекалова");
 		canvas = new GLCanvas();
-		listener = new GameListener();
 		upd = new Updater(canvas);
+		listener = new GameListener(upd);
 		
 		frame.setSize(500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,7 +30,6 @@ public class MainWindow {
 		canvas.addKeyListener(listener);
 		frame.add(canvas);
 		
-		upd.start();
 		frame.setVisible(true);
 	}
 	

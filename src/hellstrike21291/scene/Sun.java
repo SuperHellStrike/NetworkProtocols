@@ -1,5 +1,9 @@
 package hellstrike21291.scene;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.Scanner;
+
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.util.texture.Texture;
 
@@ -46,23 +50,40 @@ public class Sun extends SpaceObject{
 		list.push(new Planet(x, y, this.x, this.y, gl, shaders, vao, t));
 	}
 
+	public void clear() {
+		while(list.getSize() != 0)
+			list.pop();
+	}
 	
-	
-	
+	public void load(FileInputStream file, Texture tex) {
+		Scanner s = new Scanner(file);
+		
+		while(s.hasNext()) {
+			float x, y, angle, globalAngle;
+			
+			String str = s.next();
+			x = Float.parseFloat(str);
+			
+			str = s.next();
+			y = Float.parseFloat(str);
+			
+			str = s.next();
+			angle = Float.parseFloat(str);
+			
+			str = s.next();
+			globalAngle = Float.parseFloat(str);
+			
+			list.push(new Planet(x, y, this.x, this.y, angle, globalAngle, gl, shaders, vao, tex));
+		}
+		
+		s.close();
+		
+	}
 	
 	
 	
 	@Override
-	public void save() {}
-
-	@Override
-	public void load() {}
-
-	@Override
-	public void xSave() {}
-
-	@Override
-	public void xLoad() {}
-
-	
+	public void save(FileOutputStream file) {
+		list.save(file);
+	}
 }

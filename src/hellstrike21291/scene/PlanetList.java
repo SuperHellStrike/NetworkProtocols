@@ -1,6 +1,8 @@
 package hellstrike21291.scene;
 
-public class PlanetList {
+import java.io.FileOutputStream;
+
+public class PlanetList implements Comparable<PlanetList>{
 
 	private class Node {
 		Planet planet;
@@ -50,5 +52,21 @@ public class PlanetList {
 			current.planet.rotate(da);
 			current = current.next;
 		}
+	}
+
+	public void save(FileOutputStream file) {
+		Node current = head;
+		
+		for(int i = 0; i < size; i++) {
+			current.planet.save(file);
+			current  = current.next;
+		}
+	}
+	
+	
+	
+	@Override
+	public int compareTo(PlanetList pl) {
+		return size - pl.size;
 	}
 }

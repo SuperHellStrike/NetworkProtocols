@@ -1,5 +1,6 @@
 package hellstrike21291.listeners;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
@@ -11,8 +12,11 @@ import com.jogamp.opengl.math.Matrix4;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
+import hellstrike21291.Loader;
+import hellstrike21291.Saver;
 import hellstrike21291.scene.Sun;
 import hellstrike21291.utils.Shaders;
+import hellstrike21291.utils.Updater;
 import hellstrike21291.utils.VAO;
 
 public class GameListener extends BasicListener{
@@ -22,6 +26,8 @@ public class GameListener extends BasicListener{
 	private VAO vao;
 	private Texture sunTexture;
 	private Texture planetTexture;
+	
+	private Updater upd;
 	
 	private Sun sun;
 	
@@ -38,6 +44,10 @@ public class GameListener extends BasicListener{
 		0.0f, 1.0f,
 		1.0f, 1.0f
 	};
+	
+	public GameListener(Updater upd) {
+		this.upd = upd;
+	}
 
 	@Override
 	public void init(GLAutoDrawable drawable) {
@@ -64,6 +74,8 @@ public class GameListener extends BasicListener{
 		sunTexture.setTexParameteri(gl, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
 		
 		sun = new Sun(250, 250, gl, shaders, vao, sunTexture);
+		
+		upd.start();
 	}
 	
 	@Override
@@ -92,6 +104,24 @@ public class GameListener extends BasicListener{
 		
 		if(button == MouseEvent.BUTTON1) {
 			sun.addPlanet(x, y, planetTexture);
+		}
+		
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			upd.switchActive();
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_Q) {
+			upd.switchActive();
+			new Saver(sun);
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_O) {
+			upd.switchActive();
+			new Loader(sun, planetTexture);
 		}
 	}
 }
