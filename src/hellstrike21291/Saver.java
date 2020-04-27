@@ -12,14 +12,31 @@ import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
 import hellstrike21291.scene.Sun;
-
+/**
+ * Класс окна сохранения планет на сцене
+ * 
+ * @author Valeriya Chekalova
+ * @version 1
+ */
 public class Saver {
 
+	/** Окно сохранения */
 	private JFrame frame;
+	
+	/** Поле для ввода имени файла */
 	private JTextPane text;
+	
+	/** Кнопка для сохранения файла */
 	private JButton btn;
+	
+	/** Метка для поля с именем файла */
 	private JLabel label;
 	
+	/**
+	 * Конструктор класса Saver
+	 * 
+	 * @param sun - Солнце, планеты которого сохранить
+	 */
 	public Saver(Sun sun) {
 		frame = new JFrame("Сохранить сцену");
 		text = new JTextPane();

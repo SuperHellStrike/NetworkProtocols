@@ -19,18 +19,37 @@ import hellstrike21291.utils.Shaders;
 import hellstrike21291.utils.Updater;
 import hellstrike21291.utils.VAO;
 
+/**
+ * Класс игрового слушателя. Наследуется от базового слушателя.
+ * Отвечает за всю отрисовку и обработку ввода.
+ * 
+ * @author Igor Zhigulin
+ * @version 1
+ */
 public class GameListener extends BasicListener{
 	
+	/** Объект OpenGL 4 */
 	private GL4 gl;
+	
+	/** Объект шейдеров */
 	private Shaders shaders;
+	
+	/** Объект Vertex Array Object */
 	private VAO vao;
+	
+	/** Объект текстуры для Солнца */
 	private Texture sunTexture;
+	
+	/** Объект текстуры для планеты */
 	private Texture planetTexture;
 	
+	/** Объект аниматора. Нужен для управления движением планет */
 	private Updater upd;
 	
+	/** Объект-группа. Содержит в себе список планет, а также информацию о себе */
 	private Sun sun;
 	
+	/** Данные о позициях вершин справйта для загрузки на видеокарту */
 	private float[] posData = {
 		20.0f, 20.0f,
 		-20.0f, 20.0f,
@@ -38,6 +57,7 @@ public class GameListener extends BasicListener{
 		20.0f, -20.0f
 	};
 		
+	/** Данные о текстурных позициях спрайта для загрузки на видеокарту */
 	private float[] texData = {
 		1.0f, 0.0f,
 		0.0f, 0.0f,
@@ -45,10 +65,16 @@ public class GameListener extends BasicListener{
 		1.0f, 1.0f
 	};
 	
+	/**
+	 * Конструктор игрового слушателя событий
+	 * 
+	 * @param upd - аниматор
+	 */
 	public GameListener(Updater upd) {
 		this.upd = upd;
 	}
 
+	
 	@Override
 	public void init(GLAutoDrawable drawable) {
 		gl = drawable.getGL().getGL4();

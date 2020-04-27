@@ -9,13 +9,38 @@ import com.jogamp.opengl.util.texture.Texture;
 import hellstrike21291.utils.Shaders;
 import hellstrike21291.utils.VAO;
 
+/**
+ * Класс наследующий от абстрактного графического объекта.
+ * Реализует планету, которая вращается вокруг солнца
+ * 
+ * @author Igor Zhigulin
+ * @version 1
+ */
 public class Planet extends SpaceObject {
 	
+	/** Угол вокруг своего солнца */
 	private float globalAngle;
+	
+	/** Координата X солнца */
 	private float sunX;
+	
+	/** Координата Y солнца */
 	private float sunY;
+	
+	/** Скорость вращение вокруг солнца */
 	private float rotSpeed;
 	
+	/**
+	 * Конструктор для создания новой планеты
+	 * @param x - координата X
+	 * @param y - координата Y
+	 * @param sunX - координата X солнца
+	 * @param sunY - координата Y солнца
+	 * @param gl - объект OpenGL 4
+	 * @param shaders - объект шейдеров
+	 * @param vao - объект вершинного массива
+	 * @param texture - объект текстуры
+	 */
 	public Planet(float x, float y, float sunX, float sunY, GL4 gl, Shaders shaders, VAO vao, Texture texture) {
 		this.vao = vao;
 		this.shaders = shaders;
@@ -33,6 +58,9 @@ public class Planet extends SpaceObject {
 		globalAngle = 0;
 	}
 	
+	/**
+	 * Конструктор для загрузки объектов из файла
+	 */
 	public Planet(float x, float y, float sunX, float sunY, float angle, float globalAngle, GL4 gl, Shaders shaders, VAO vao, Texture texture) {
 		this.vao = vao;
 		this.shaders = shaders;
@@ -51,6 +79,9 @@ public class Planet extends SpaceObject {
 		this.rotSpeed = (float) Math.sqrt(1/(distance));
 	}
 
+	/**
+	 * Определение метода отрисовки
+	 */
 	@Override
 	public void draw() {
 		texture.bind(gl);
@@ -63,6 +94,9 @@ public class Planet extends SpaceObject {
 		
 	}
 	
+	/**
+	 * Определение метода действий
+	 */
 	@Override
 	protected void doAction() {
 		modelMatrix.loadIdentity();
@@ -78,6 +112,9 @@ public class Planet extends SpaceObject {
 			globalAngle = 0;
 	}
 
+	/**
+	 * Определение метода сохранения
+	 */
 	@Override
 	public void save(FileOutputStream file) {
 		try {

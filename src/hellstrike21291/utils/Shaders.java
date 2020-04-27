@@ -10,6 +10,12 @@ import com.jogamp.opengl.math.Matrix4;
 import com.jogamp.opengl.util.glsl.ShaderCode;
 import com.jogamp.opengl.util.glsl.ShaderProgram;
 
+/**
+ * Класс-обёртка для шейдеров
+ * 
+ * @author Igor Zhigulin
+ * @version 1
+ */
 public class Shaders {
 	private GL4 gl;
 	private ShaderProgram program = new ShaderProgram();

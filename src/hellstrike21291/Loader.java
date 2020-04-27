@@ -14,14 +14,32 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import hellstrike21291.scene.Sun;
 
+/**
+ * Класс загрузчика карты из файла
+ * 
+ * @author Igor Zhigulin
+ * @version 1
+ */
 public class Loader {
 	
+	/** Фрейм окна загрузки */
 	private JFrame frame;
+	
+	/** Кнопка для загрузки */
 	private JButton btn;
+	
+	/** Текстовая метка над полем для ввода имени файла */
 	private JLabel label;
+	
+	/** Текстовое поле для ввода имени файла */
 	private JTextPane text;
 	
-	
+	/**
+	 * Конструктор окна загрузки сцены
+	 * 
+	 * @param sun - объект-группа (Солнце), к которому загрузить планеты
+	 * @param t - текстура для планеты
+	 */
 	public Loader(Sun sun, Texture t) {
 		frame = new JFrame("Загрузка сцены");
 		btn = new JButton("Загрузить");
@@ -64,5 +82,4 @@ public class Loader {
 		
 		frame.setVisible(true);
 	}
-
 }

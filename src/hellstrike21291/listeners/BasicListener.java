@@ -8,6 +8,16 @@ import java.awt.event.MouseListener;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
+
+/**
+ * Класс базового слушателя событий OpenGL, клавиатуры и мыши.
+ * Нужен лишь для наследование, но не является абстрактным, чтобы 
+ * была возможность создать его экземпляр для тестирования в самом
+ * начале разработки.
+ * 
+ * @author Igor Zhigulin
+ * @version 1
+ */
 public class BasicListener implements GLEventListener, MouseListener, KeyListener{
 
 	@Override

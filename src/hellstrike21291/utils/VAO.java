@@ -5,6 +5,12 @@ import java.nio.FloatBuffer;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL4;
 
+/**
+ * Класс-обёртка для вершинного массива
+ * 
+ * @author Igor Zhigulin
+ * @version 1
+ */
 public class VAO {
 	private int[] vao = new int[1];
 	
